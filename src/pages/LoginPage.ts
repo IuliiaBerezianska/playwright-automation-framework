@@ -3,20 +3,17 @@ import HomePage from './HomePage'
 import logger from '../utils/LoggerUtil';
 
 export default class LoginPage {
-    readonly page: Page;
-    readonly userNameInput: string;
-    readonly passwordInput: string;
-    readonly loginBtn: string;
+    private readonly userNameInput = '#username';
+    private readonly password = '#password';
+    private readonly loginBtn = '#Login';
 
-    constructor(page: Page) {
-        this.page = page;
-        this.userNameInput = '#username';
-        this.passwordInput = '#password';
-        this.loginBtn = '#Login';
+    constructor(private page: Page) {
     }
 
     async navigateToLoginPage(){
         await this.page.goto('/');
+        const url = this.page.url();
+        console.log(url);
     }   
     
     async enterUserName(username: string){
@@ -25,7 +22,7 @@ export default class LoginPage {
     }
     
     async enterPassword(password: string){
-    await this.page.fill(this.passwordInput, password)
+    await this.page.fill(this.password, password)
     logger.info('Filled password');
     }
     
