@@ -4,6 +4,7 @@ import {decrypt} from '../utils/CryptojsUtil';
 import logger from '../utils/LoggerUtil';
 import contacts from '../testData/contacts.json'
 import { convertCsvFileToJsonFile } from '../utils/CsvToJsonUtility';
+import { exportToCSV, exportToJson, generateTestData } from '../utils/FakerDataUtil';
 
 /*let loginPage: any;
 let homePage: any;
@@ -40,6 +41,13 @@ for (const contact of contacts) {
     })
 }
 
-test('csv to json', async () => {
+test.skip('csv to json', async () => {
     convertCsvFileToJsonFile('data.csv', 'covertedToJason.json');
 });
+
+test('Fake data generation', async () => {
+    const data = generateTestData(2);
+    
+    exportToJson(data, 'testData_en.json');
+    exportToCSV(data, 'testData_en.csv');
+})
