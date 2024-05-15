@@ -14,6 +14,7 @@ export default class LoginPage {
         await this.page.goto('/');
         const url = this.page.url();
         console.log(url);
+        await this.page.waitForLoadState();
     }   
     
     async enterUserName(username: string){
@@ -33,8 +34,17 @@ export default class LoginPage {
     }).then(()=> 
          // Log a message indicating that the login button was clicked successfully
         logger.info("Clicked login button"));
-
+    await this.page.waitForLoadState();
     const homePage = new HomePage(this.page);
     return homePage;
+    }
+
+    async quickLogin(username: string, password: string){
+        await this.navigateToLoginPage();
+        await this.enterUserName(username);
+        await this.enterPassword(password);
+        await this.clickEnterBtn();
+        const homePage = new HomePage(this.page);
+        return homePage;
     }
 }

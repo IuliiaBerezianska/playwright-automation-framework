@@ -1,6 +1,6 @@
 // Include CryptoJS library (make sure to include it in your project)
 // You can download it from: https://cryptojs.gitbook.io/docs/
-const CryptoJSUtil = require("crypto-js");
+import CryptoJSUtil from "crypto-js";
 
 /**
  * Encrypts the given text using AES encryption.

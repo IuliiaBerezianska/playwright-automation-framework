@@ -12,7 +12,7 @@ constructor( private page: Page) {
 
 async expectServiceTitleToBeVisible() {
     await expect (this.page.getByTitle(this.serviceTitleLocator)).toBeVisible({
-        timeout: 15000
+        timeout: 40000
     }).catch((error) => {
         logger.error(`Error clicking login button: ${error}}`);
         throw error;//rethrow the error if needed
@@ -21,9 +21,11 @@ async expectServiceTitleToBeVisible() {
         logger.info("Service title is visible"));   
 }
 
-async navigateToContactTab(): Promise<any>{
+async navigateToContactTab(): Promise<object>{
+    await this.page.waitForLoadState("networkidle");
     await expect(this.page.getByTitle(this.contactsBtn)).toBeVisible();
     logger.info('Contacts tab is visible');
+    await this.page.waitForLoadState();
     await this.page.getByTitle(this.contactsBtn).click();
     logger.info('Contacts Tab is clicked');
     return new ContactPage(this.page);

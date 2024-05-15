@@ -1,10 +1,11 @@
-import { test, Page } from '@playwright/test';
+import { test} from '@playwright/test';
 import LoginPage from '../pages/LoginPage';
 import {decrypt} from '../utils/CryptojsUtil';
 import logger from '../utils/LoggerUtil';
 import contacts from '../testData/contacts.json'
 import { convertCsvFileToJsonFile } from '../utils/CsvToJsonUtility';
 import { exportToCSV, exportToJson, generateTestData } from '../utils/FakerDataUtil';
+import ContactPage from '../pages/ContactPage';
 
 /*let loginPage: any;
 let homePage: any;
@@ -33,7 +34,8 @@ for (const contact of contacts) {
         await page.waitForTimeout(3000);
         const homePage = await loginPage.clickEnterBtn();
         await homePage.expectServiceTitleToBeVisible();
-        const contactPage = await homePage.navigateToContactTab();
+        await homePage.navigateToContactTab();
+        const contactPage = new ContactPage(page);
         await contactPage.createContact(contact.firstName, contact.lastName);
         await contactPage.expectNewContactIsCreated(contact.firstName, contact.lastName);
         await page.waitForTimeout(3000);
